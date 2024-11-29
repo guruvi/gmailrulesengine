@@ -5,3 +5,6 @@ help:
 
 install:
 	@ pdm install -v --no-self; 
+
+test:
+	@ pdm run pytest;
