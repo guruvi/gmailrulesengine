@@ -74,3 +74,18 @@ def list_email(*, user_id: str) -> dict[str, Any]:
     results = service.users().messages().list(userId=user_id).execute()
     LOGGER.info("Gmail list message API response successful.")
     return results
+
+
+def get_email_message(*, user_id: str, message_id: str) -> dict[str, Any]:
+    """
+    Get the user's Gmail labels.
+
+    :param user_id: User id
+    :type user_id: str
+    """
+    LOGGER.info("Invoking Gmail messages get API")
+    credentials = get_access_token(scopes=["https://mail.google.com/"])
+    service: Resource = build("gmail", "v1", credentials=credentials)
+    results = service.users().messages().get(userId=user_id, id=message_id).execute()
+    LOGGER.info("Gmail get message API response successful.")
+    return results
