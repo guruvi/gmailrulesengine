@@ -8,3 +8,6 @@ install:
 
 test:
 	@ pdm run pytest;
+
+format:
+	@ pdm run black core/ tests/;

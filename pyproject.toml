@@ -5,7 +5,11 @@ description = "Default template for PDM package"
 authors = [
     {name = "GuruVi", email = "guruvigneshwaran@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib"
+]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
@@ -19,4 +23,9 @@ dev = [
     "black==23.1.*",
     "pytest==8.2.*",
     "pytest-cov==5.0.*",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "gmail_client",
 ]

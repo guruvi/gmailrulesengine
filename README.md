@@ -17,6 +17,7 @@ This guide targets macOS for local development and assumes certain prerequisites
 git clone git@github.com:guruvi/gmailrulesengine.git
 cd gmailrulesengine
 ```
+
 2. Run the following command to install dependencies and set up the project:
 ```bash
 make install
