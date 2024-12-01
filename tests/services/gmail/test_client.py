@@ -73,19 +73,15 @@ def test_should_list_all_emails(mock_build_google_service, mock_credentials):
     service = mock.MagicMock()
     mock_build_google_service.return_value = service
     service.users.return_value.messages.return_value.list.return_value.execute.return_value = [
-        {
-            "id": "19380f65a0cd3791",
-            "threadId": "19380664d0cd9a9b"
-        },
-        {
-            "id": "19380f4b5b231e0e",
-            "threadId": "19380f4b5b231e0e"
-        },
+        {"id": "19380f65a0cd3791", "threadId": "19380664d0cd9a9b"},
+        {"id": "19380f4b5b231e0e", "threadId": "19380f4b5b231e0e"},
     ]
     response = list_email(user_id="test_user_id")
 
     mock_build_google_service.assert_called_once_with(
-        "gmail", "v1", credentials={
+        "gmail",
+        "v1",
+        credentials={
             "token": "token",
             "refresh_token": "refresh_token",
             "token_uri": "https://oauth2.googleapis.com/token",
@@ -95,15 +91,9 @@ def test_should_list_all_emails(mock_build_google_service, mock_credentials):
             "universe_domain": "googleapis.com",
             "account": "",
             "expiry": "2024-11-30T18:02:43.682924Z",
-        }
+        },
     )
     assert response == [
-        {
-            "id": "19380f65a0cd3791",
-            "threadId": "19380664d0cd9a9b"
-        },
-        {
-            "id": "19380f4b5b231e0e",
-            "threadId": "19380f4b5b231e0e"
-        },
+        {"id": "19380f65a0cd3791", "threadId": "19380664d0cd9a9b"},
+        {"id": "19380f4b5b231e0e", "threadId": "19380f4b5b231e0e"},
     ]

@@ -1,7 +1,6 @@
 """This module contains different client methods for accessing Gmail APIs."""
 
 
-import json
 import os
 from typing import Any, Final
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -52,9 +51,12 @@ def list_email(*, user_id: str) -> dict[str, Any]:
     LOGGER.info("Invoking Gmail messages list API")
     credentials = get_access_token(scopes=["https://mail.google.com/"])
     service: Resource = build("gmail", "v1", credentials=credentials)
-    results = service.users().messages().list(
-        userId=user_id, maxResults=10, labelIds=["INBOX"]
-    ).execute()
+    results = (
+        service.users()
+        .messages()
+        .list(userId=user_id, maxResults=10, labelIds=["INBOX"])
+        .execute()
+    )
     LOGGER.info("Gmail list message API response successful.")
     return results
 
@@ -69,8 +71,6 @@ def list_email(*, user_id: str) -> dict[str, Any]:
     LOGGER.info("Invoking Gmail messages list API")
     credentials = get_access_token(scopes=["https://mail.google.com/"])
     service: Resource = build("gmail", "v1", credentials=credentials)
-    results = service.users().messages().list(
-        userId=user_id
-    ).execute()
+    results = service.users().messages().list(userId=user_id).execute()
     LOGGER.info("Gmail list message API response successful.")
     return results
