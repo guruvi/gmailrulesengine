@@ -21,7 +21,7 @@ cd gmailrulesengine
 
 2. Run the following command to install dependencies and set up the project:
 ```bash
-make install
+make setup
 ```
 
 3. Verify the setup by running tests:
