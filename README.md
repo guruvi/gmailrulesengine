@@ -9,6 +9,7 @@ This guide targets macOS for local development and assumes certain prerequisites
 ### Pre-requisites
 - `make`
 - `pdm` (Python Development Master)
+- `Python 3.12`
 
 ### Local Setup on macOS
 

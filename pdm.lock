@@ -5,10 +5,24 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:8583447727dba8bc1c5323c76f268c3d2f4d8c446ba09427ed3b3be896f75532"
+content_hash = "sha256:0b2b414e9d205240bd531979e8d9f47c1c58465e5387a6870879bf755aab7d18"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
+
+[[package]]
+name = "aiosqlite"
+version = "0.20.0"
+requires_python = ">=3.8"
+summary = "asyncio bridge to the standard sqlite3 module"
+groups = ["default"]
+dependencies = [
+    "typing-extensions>=4.0",
+]
+files = [
+    {file = "aiosqlite-0.20.0-py3-none-any.whl", hash = "sha256:36a1deaca0cac40ebe32aac9977a6e2bbc7f5189f23f4a54d5908986729e5bd6"},
+    {file = "aiosqlite-0.20.0.tar.gz", hash = "sha256:6d35c8c256637f4672f843c31021464090805bf925385ac39473fb16eaaca3d7"},
+]
 
 [[package]]
 name = "annotated-types"
@@ -22,6 +36,17 @@ dependencies = [
 files = [
     {file = "annotated_types-0.7.0-py3-none-any.whl", hash = "sha256:1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53"},
     {file = "annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"},
+]
+
+[[package]]
+name = "asttokens"
+version = "3.0.0"
+requires_python = ">=3.8"
+summary = "Annotate AST trees with source code positions"
+groups = ["dev"]
+files = [
+    {file = "asttokens-3.0.0-py3-none-any.whl", hash = "sha256:e3078351a059199dd5138cb1c706e6430c05eff2ff136af5eb4790f9d28932e2"},
+    {file = "asttokens-3.0.0.tar.gz", hash = "sha256:0dcd8baa8d62b0c1d118b399b2ddba3c4aff271d0d7a9e0d4c1681c79035bbc7"},
 ]
 
 [[package]]
@@ -165,6 +190,17 @@ files = [
 ]
 
 [[package]]
+name = "decorator"
+version = "5.1.1"
+requires_python = ">=3.5"
+summary = "Decorators for Humans"
+groups = ["dev"]
+files = [
+    {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
+    {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
+]
+
+[[package]]
 name = "dnspython"
 version = "2.7.0"
 requires_python = ">=3.9"
@@ -199,6 +235,17 @@ dependencies = [
 files = [
     {file = "email_validator-2.2.0-py3-none-any.whl", hash = "sha256:561977c2d73ce3611850a06fa56b414621e0c8faa9d66f2611407d87465da631"},
     {file = "email_validator-2.2.0.tar.gz", hash = "sha256:cb690f344c617a714f22e66ae771445a1ceb46821152df8e165c5f9a364582b7"},
+]
+
+[[package]]
+name = "executing"
+version = "2.1.0"
+requires_python = ">=3.8"
+summary = "Get the currently executing AST node of a frame, and other information"
+groups = ["dev"]
+files = [
+    {file = "executing-2.1.0-py2.py3-none-any.whl", hash = "sha256:8d63781349375b5ebccc3142f4b30350c0cd9c79f921cde38be2be4637e98eaf"},
+    {file = "executing-2.1.0.tar.gz", hash = "sha256:8ea27ddd260da8150fa5a708269c4a10e76161e2496ec3e587da9e3c0fe4b9ab"},
 ]
 
 [[package]]
@@ -346,6 +393,44 @@ files = [
 ]
 
 [[package]]
+name = "ipython"
+version = "8.30.0"
+requires_python = ">=3.10"
+summary = "IPython: Productive Interactive Computing"
+groups = ["dev"]
+dependencies = [
+    "colorama; sys_platform == \"win32\"",
+    "decorator",
+    "exceptiongroup; python_version < \"3.11\"",
+    "jedi>=0.16",
+    "matplotlib-inline",
+    "pexpect>4.3; sys_platform != \"win32\" and sys_platform != \"emscripten\"",
+    "prompt-toolkit<3.1.0,>=3.0.41",
+    "pygments>=2.4.0",
+    "stack-data",
+    "traitlets>=5.13.0",
+    "typing-extensions>=4.6; python_version < \"3.12\"",
+]
+files = [
+    {file = "ipython-8.30.0-py3-none-any.whl", hash = "sha256:85ec56a7e20f6c38fce7727dcca699ae4ffc85985aa7b23635a8008f918ae321"},
+    {file = "ipython-8.30.0.tar.gz", hash = "sha256:cb0a405a306d2995a5cbb9901894d240784a9f341394c6ba3f4fe8c6eb89ff6e"},
+]
+
+[[package]]
+name = "jedi"
+version = "0.19.2"
+requires_python = ">=3.6"
+summary = "An autocompletion tool for Python that can be used for text editors."
+groups = ["dev"]
+dependencies = [
+    "parso<0.9.0,>=0.8.4",
+]
+files = [
+    {file = "jedi-0.19.2-py2.py3-none-any.whl", hash = "sha256:a8ef22bde8490f57fe5c7681a3c83cb58874daf72b4784de3cce5b6ef6edb5b9"},
+    {file = "jedi-0.19.2.tar.gz", hash = "sha256:4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0"},
+]
+
+[[package]]
 name = "jinja2"
 version = "3.1.4"
 requires_python = ">=3.7"
@@ -377,6 +462,20 @@ files = [
     {file = "MarkupSafe-3.0.2-cp312-cp312-win32.whl", hash = "sha256:0f4ca02bea9a23221c0182836703cbf8930c5e9454bacce27e767509fa286a30"},
     {file = "MarkupSafe-3.0.2-cp312-cp312-win_amd64.whl", hash = "sha256:8e06879fc22a25ca47312fbe7c8264eb0b662f6db27cb2d3bbbc74b1df4b9b87"},
     {file = "markupsafe-3.0.2.tar.gz", hash = "sha256:ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"},
+]
+
+[[package]]
+name = "matplotlib-inline"
+version = "0.1.7"
+requires_python = ">=3.8"
+summary = "Inline Matplotlib backend for Jupyter"
+groups = ["dev"]
+dependencies = [
+    "traitlets",
+]
+files = [
+    {file = "matplotlib_inline-0.1.7-py3-none-any.whl", hash = "sha256:df192d39a4ff8f21b1895d72e6a13f5fcc5099f00fa84384e0ea28c2cc0653ca"},
+    {file = "matplotlib_inline-0.1.7.tar.gz", hash = "sha256:8423b23ec666be3d16e16b60bdd8ac4e86e840ebd1dd11a30b9f117f2fa0ab90"},
 ]
 
 [[package]]
@@ -413,6 +512,17 @@ files = [
 ]
 
 [[package]]
+name = "parso"
+version = "0.8.4"
+requires_python = ">=3.6"
+summary = "A Python Parser"
+groups = ["dev"]
+files = [
+    {file = "parso-0.8.4-py2.py3-none-any.whl", hash = "sha256:a418670a20291dacd2dddc80c377c5c3791378ee1e8d12bffc35420643d43f18"},
+    {file = "parso-0.8.4.tar.gz", hash = "sha256:eb3a7b58240fb99099a345571deecc0f9540ea5f4dd2fe14c2a99d6b281ab92d"},
+]
+
+[[package]]
 name = "pathspec"
 version = "0.12.1"
 requires_python = ">=3.8"
@@ -421,6 +531,20 @@ groups = ["default", "dev"]
 files = [
     {file = "pathspec-0.12.1-py3-none-any.whl", hash = "sha256:a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08"},
     {file = "pathspec-0.12.1.tar.gz", hash = "sha256:a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712"},
+]
+
+[[package]]
+name = "pexpect"
+version = "4.9.0"
+summary = "Pexpect allows easy control of interactive console applications."
+groups = ["dev"]
+marker = "sys_platform != \"win32\" and sys_platform != \"emscripten\""
+dependencies = [
+    "ptyprocess>=0.5",
+]
+files = [
+    {file = "pexpect-4.9.0-py2.py3-none-any.whl", hash = "sha256:7236d1e080e4936be2dc3e326cec0af72acf9212a7e1d060210e70a47e253523"},
+    {file = "pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f"},
 ]
 
 [[package]]
@@ -437,6 +561,22 @@ dependencies = [
     "pydantic[email]==2.*",
     "targ>=0.3.7",
     "typing-extensions>=4.3.0",
+]
+files = [
+    {file = "piccolo-1.22.0-py3-none-any.whl", hash = "sha256:410e451e5f7c418b08b71666554008a1252ad7d33f754a2078dd2fd973aa57c1"},
+    {file = "piccolo-1.22.0.tar.gz", hash = "sha256:cf8c11dddb8b8ef92526217e073c55f3ab067912b775e3e093fbc2d3749195e1"},
+]
+
+[[package]]
+name = "piccolo"
+version = "1.22.0"
+extras = ["sqlite"]
+requires_python = ">=3.9.0"
+summary = "A fast, user friendly ORM and query builder which supports asyncio."
+groups = ["default"]
+dependencies = [
+    "aiosqlite>=0.16.0",
+    "piccolo==1.22.0",
 ]
 files = [
     {file = "piccolo-1.22.0-py3-none-any.whl", hash = "sha256:410e451e5f7c418b08b71666554008a1252ad7d33f754a2078dd2fd973aa57c1"},
@@ -463,6 +603,20 @@ groups = ["dev"]
 files = [
     {file = "pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"},
     {file = "pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"},
+]
+
+[[package]]
+name = "prompt-toolkit"
+version = "3.0.48"
+requires_python = ">=3.7.0"
+summary = "Library for building powerful interactive command lines in Python"
+groups = ["dev"]
+dependencies = [
+    "wcwidth",
+]
+files = [
+    {file = "prompt_toolkit-3.0.48-py3-none-any.whl", hash = "sha256:f49a827f90062e411f1ce1f854f2aedb3c23353244f8108b89283587397ac10e"},
+    {file = "prompt_toolkit-3.0.48.tar.gz", hash = "sha256:d6623ab0477a80df74e646bdbc93621143f5caf104206aa29294d53de1a03d90"},
 ]
 
 [[package]]
@@ -493,6 +647,27 @@ files = [
     {file = "protobuf-5.29.0-cp38-abi3-manylinux2014_x86_64.whl", hash = "sha256:0d10091d6d03537c3f902279fcf11e95372bdd36a79556311da0487455791b20"},
     {file = "protobuf-5.29.0-py3-none-any.whl", hash = "sha256:88c4af76a73183e21061881360240c0cdd3c39d263b4e8fb570aaf83348d608f"},
     {file = "protobuf-5.29.0.tar.gz", hash = "sha256:445a0c02483869ed8513a585d80020d012c6dc60075f96fa0563a724987b1001"},
+]
+
+[[package]]
+name = "ptyprocess"
+version = "0.7.0"
+summary = "Run a subprocess in a pseudo terminal"
+groups = ["dev"]
+marker = "sys_platform != \"win32\" and sys_platform != \"emscripten\""
+files = [
+    {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
+    {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
+]
+
+[[package]]
+name = "pure-eval"
+version = "0.2.3"
+summary = "Safely evaluate AST nodes without side effects"
+groups = ["dev"]
+files = [
+    {file = "pure_eval-0.2.3-py3-none-any.whl", hash = "sha256:1db8e35b67b3d218d818ae653e27f06c3aa420901fa7b081ca98cbedc874e0d0"},
+    {file = "pure_eval-0.2.3.tar.gz", hash = "sha256:5f4e983f40564c576c7c8635ae88db5956bb2229d7e9237d03b3c0b0190eaf42"},
 ]
 
 [[package]]
@@ -577,6 +752,17 @@ dependencies = [
 files = [
     {file = "pydantic-2.10.2-py3-none-any.whl", hash = "sha256:cfb96e45951117c3024e6b67b25cdc33a3cb7b2fa62e239f7af1378358a1d99e"},
     {file = "pydantic-2.10.2.tar.gz", hash = "sha256:2bc2d7f17232e0841cbba4641e65ba1eb6fafb3a08de3a091ff3ce14a197c4fa"},
+]
+
+[[package]]
+name = "pygments"
+version = "2.18.0"
+requires_python = ">=3.8"
+summary = "Pygments is a syntax highlighting package written in Python."
+groups = ["dev"]
+files = [
+    {file = "pygments-2.18.0-py3-none-any.whl", hash = "sha256:b8e6aca0523f3ab76fee51799c488e38782ac06eafcf95e7ba832985c8e7b13a"},
+    {file = "pygments-2.18.0.tar.gz", hash = "sha256:786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"},
 ]
 
 [[package]]
@@ -672,6 +858,21 @@ files = [
 ]
 
 [[package]]
+name = "stack-data"
+version = "0.6.3"
+summary = "Extract data from python stack frames and tracebacks for informative displays"
+groups = ["dev"]
+dependencies = [
+    "asttokens>=2.1.0",
+    "executing>=1.2.0",
+    "pure-eval",
+]
+files = [
+    {file = "stack_data-0.6.3-py3-none-any.whl", hash = "sha256:d5558e0c25a4cb0853cddad3d77da9891a08cb85dd9f9f91b9f8cd66e511e695"},
+    {file = "stack_data-0.6.3.tar.gz", hash = "sha256:836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9"},
+]
+
+[[package]]
 name = "targ"
 version = "0.4.0"
 requires_python = ">=3.8.0"
@@ -685,6 +886,17 @@ dependencies = [
 files = [
     {file = "targ-0.4.0-py3-none-any.whl", hash = "sha256:5237524323661ffa899158d668468b5c94bb84e2d988bd216981932844da63eb"},
     {file = "targ-0.4.0.tar.gz", hash = "sha256:dcdb57945bffe5bc59570d2e41bb1adc6280c5460332c5daf300729bc88d1aba"},
+]
+
+[[package]]
+name = "traitlets"
+version = "5.14.3"
+requires_python = ">=3.8"
+summary = "Traitlets Python configuration system"
+groups = ["dev"]
+files = [
+    {file = "traitlets-5.14.3-py3-none-any.whl", hash = "sha256:b74e89e397b1ed28cc831db7aea759ba6640cb3de13090ca145426688ff1ac4f"},
+    {file = "traitlets-5.14.3.tar.gz", hash = "sha256:9ed0579d3502c94b4b3732ac120375cda96f923114522847de4b3bb98b96b6b7"},
 ]
 
 [[package]]
@@ -718,4 +930,17 @@ groups = ["default"]
 files = [
     {file = "urllib3-2.2.3-py3-none-any.whl", hash = "sha256:ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac"},
     {file = "urllib3-2.2.3.tar.gz", hash = "sha256:e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"},
+]
+
+[[package]]
+name = "wcwidth"
+version = "0.2.13"
+summary = "Measures the displayed width of unicode strings in a terminal"
+groups = ["dev"]
+dependencies = [
+    "backports-functools-lru-cache>=1.2.1; python_version < \"3.2\"",
+]
+files = [
+    {file = "wcwidth-0.2.13-py2.py3-none-any.whl", hash = "sha256:3da69048e4540d84af32131829ff948f1e022c1c6bdb8d6102117aac784f6859"},
+    {file = "wcwidth-0.2.13.tar.gz", hash = "sha256:72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"},
 ]
