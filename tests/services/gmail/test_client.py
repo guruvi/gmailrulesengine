@@ -100,12 +100,16 @@ def test_should_list_all_emails(mock_build_google_service, mock_credentials):
         {"id": "19380f4b5b231e0e", "threadId": "19380f4b5b231e0e"},
     ]
 
+
 # TODO: Add test case for list_email to raise exception
 # TODO: Add test case for get message to raise exception
 
+
 @mock.patch("core.services.gmail.client.get_access_token")
 @mock.patch("core.services.gmail.client.build")
-def test_should_get_message_based_on_message_id(mock_build_google_service, mock_credentials):
+def test_should_get_message_based_on_message_id(
+    mock_build_google_service, mock_credentials
+):
     mock_credentials.return_value = {
         "token": "token",
         "refresh_token": "refresh_token",
@@ -121,57 +125,39 @@ def test_should_get_message_based_on_message_id(mock_build_google_service, mock_
     get_message_response: dict[str, Any] = {
         "id": "19380f65a0cd3791",
         "threadId": "19380664d0cd9a9b",
-        "labelIds": [
-            "CATEGORY_PERSONAL",
-            "INBOX"
-        ],
+        "labelIds": ["CATEGORY_PERSONAL", "INBOX"],
         "snippet": "Dear Sir/Madam,",
         "payload": {
             "partId": "",
             "mimeType": "multipart/mixed",
             "filename": "",
             "headers": [
-                {
-                    "name": "Delivered-To",
-                    "value": "abcde@gmail.com"
-                },
+                {"name": "Delivered-To", "value": "abcde@gmail.com"},
                 {
                     "name": "Received",
-                    "value": "by 2002:a05:640c:1501:b0:219:8a79:a0ea with SMTP id n1csp1169483eir;        Sat, 30 Nov 2024 22:44:09 -0800 (PST)"
+                    "value": "by 2002:a05:640c:1501:b0:219:8a79:a0ea with SMTP id n1csp1169483eir;        Sat, 30 Nov 2024 22:44:09 -0800 (PST)",
                 },
-                {
-                    "name": "Date",
-                    "value": "Sun, 1 Dec 2024 11:36:27 +0530 (IST)"
-                },
-                {
-                    "name": "From",
-                    "value": "kblalerts@ktkbank.in"
-                },
-                {
-                    "name": "To",
-                    "value": "abcde@gmail.com"
-                },
+                {"name": "Date", "value": "Sun, 1 Dec 2024 11:36:27 +0530 (IST)"},
+                {"name": "From", "value": "kblalerts@ktkbank.in"},
+                {"name": "To", "value": "abcde@gmail.com"},
                 {
                     "name": "Subject",
-                    "value": "****** BANK- Transaction EMAIL Alert ******"
+                    "value": "****** BANK- Transaction EMAIL Alert ******",
                 },
-                {
-                    "name": "Mime-Version",
-                    "value": "1.0"
-                },
+                {"name": "Mime-Version", "value": "1.0"},
             ],
-            "body": {
-                "size": 0
-            },
-            "parts": []
+            "body": {"size": 0},
+            "parts": [],
         },
         "sizeEstimate": 6144,
         "historyId": "9474857",
-        "internalDate": "1733033187000"
+        "internalDate": "1733033187000",
     }
     service = mock.MagicMock()
     mock_build_google_service.return_value = service
-    service.users.return_value.messages.return_value.get.return_value.execute.return_value = get_message_response
+    service.users.return_value.messages.return_value.get.return_value.execute.return_value = (
+        get_message_response
+    )
 
     response = get_email_message(user_id="test_user_id", message_id="19380f65a0cd3791")
 
