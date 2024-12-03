@@ -1,6 +1,7 @@
 """This module contains different client methods for accessing Gmail APIs."""
 
 
+from functools import cache
 import os
 from typing import Any, Final
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -11,7 +12,8 @@ import logging
 LOGGER: Final[logging.Logger] = logging.getLogger(name=__name__)
 
 
-def get_access_token(*, scopes: list) -> Credentials:
+@cache
+def get_access_token(*, scopes: tuple) -> Credentials:
     """
     Get the access token from the credentials.json file.
 
@@ -33,7 +35,7 @@ def get_access_token(*, scopes: list) -> Credentials:
         raise FileNotFoundError("Credentials file not found")
 
     try:
-        flow = InstalledAppFlow.from_client_secrets_file(credentials_path, scopes)
+        flow = InstalledAppFlow.from_client_secrets_file(credentials_path, list(scopes))
         credentials: Credentials = flow.run_local_server(port=0)
         LOGGER.info("Credentials has been successfully fetched from the server.")
         return credentials
@@ -49,7 +51,9 @@ def list_email(*, user_id: str) -> dict[str, Any]:
     :type user_id: str
     """
     LOGGER.info("Invoking Gmail messages list API")
-    credentials = get_access_token(scopes=["https://mail.google.com/"])
+    credentials = get_access_token(scopes=("https://mail.google.com/",))
+    if not credentials.valid:
+        credentials = get_access_token(scopes=("https://mail.google.com/",))
     service: Resource = build("gmail", "v1", credentials=credentials)
     results = (
         service.users()
@@ -57,21 +61,6 @@ def list_email(*, user_id: str) -> dict[str, Any]:
         .list(userId=user_id, maxResults=10, labelIds=["INBOX"])
         .execute()
     )
-    LOGGER.info("Gmail list message API response successful.")
-    return results
-
-
-def list_email(*, user_id: str) -> dict[str, Any]:
-    """
-    List the user's Gmail labels.
-
-    :param user_id: User id
-    :type user_id: str
-    """
-    LOGGER.info("Invoking Gmail messages list API")
-    credentials = get_access_token(scopes=["https://mail.google.com/"])
-    service: Resource = build("gmail", "v1", credentials=credentials)
-    results = service.users().messages().list(userId=user_id).execute()
     LOGGER.info("Gmail list message API response successful.")
     return results
 
@@ -84,7 +73,10 @@ def get_email_message(*, user_id: str, message_id: str) -> dict[str, Any]:
     :type user_id: str
     """
     LOGGER.info("Invoking Gmail messages get API")
-    credentials = get_access_token(scopes=["https://mail.google.com/"])
+    credentials = get_access_token(scopes=("https://mail.google.com/",))
+    if not credentials.valid:
+        credentials = get_access_token(scopes=("https://mail.google.com/",))
+    credentials = get_access_token(scopes=("https://mail.google.com/",))
     service: Resource = build("gmail", "v1", credentials=credentials)
     results = service.users().messages().get(userId=user_id, id=message_id).execute()
     LOGGER.info("Gmail get message API response successful.")
