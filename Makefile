@@ -18,6 +18,9 @@ setup:
 test:
 	@ pdm run pytest;
 
+create-migrations:
+	@ pdm run piccolo migrations new gmail_rules_engine --auto;
+
 format:
 	@ pdm run black core/ tests/;
 

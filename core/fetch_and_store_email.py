@@ -3,7 +3,6 @@
 
 import datetime
 import logging
-import sys
 from typing import Any
 
 from core.pydantic_models import EmailData
@@ -23,7 +22,7 @@ def parse_datetime_email(value: str) -> datetime.datetime:
     """
     for fmt in ["%a, %d %b %Y %H:%M:%S %z", "%d %b %Y %H:%M:%S %z"]:
         try:
-            return datetime.datetime.strptime(value, fmt)
+            return datetime.datetime.strptime(value.split(" (")[0], fmt)
         except ValueError:
             pass
 

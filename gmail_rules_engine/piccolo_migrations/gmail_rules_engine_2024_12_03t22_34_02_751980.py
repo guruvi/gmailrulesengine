@@ -7,7 +7,7 @@ from piccolo.columns.defaults.uuid import UUID4
 from piccolo.columns.indexes import IndexMethod
 
 
-ID = "2024-12-02T20:16:21:430052"
+ID = "2024-12-03T22:34:02:751980"
 VERSION = "1.22.0"
 DESCRIPTION = ""
 
@@ -53,7 +53,7 @@ async def forwards():
             "default": "",
             "null": False,
             "primary_key": False,
-            "unique": False,
+            "unique": True,
             "index": True,
             "index_method": IndexMethod.btree,
             "choices": None,
