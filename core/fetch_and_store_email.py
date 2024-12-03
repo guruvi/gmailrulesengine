@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+import sys
 from typing import Any
 
 from core.pydantic_models import EmailData
@@ -11,13 +12,28 @@ from core.services.gmail.client import get_email_message, list_email
 
 LOGGER: logging.Logger = logging.getLogger(name=__name__)
 
+def parse_datetime_email(value: str) -> datetime.datetime:
+    """Parse the datetime string to datetime object.
+
+    :param date: Date string
+    :type date: str
+
+    :returns: Datetime object
+    :rtype: datetime.datetime
+    """
+    for fmt in ["%a, %d %b %Y %H:%M:%S %z", "%d %b %Y %H:%M:%S %z"]:
+        try:
+            return datetime.datetime.strptime(value, fmt)
+        except ValueError:
+            pass
+
 # Mapping header names to actions
 HEADER_HANDLERS: dict[str, Any] = {
     "From": lambda fields, value: fields.update({"from_address": value}),
     "To": lambda fields, value: fields.update({"to_address": value}),
     "Subject": lambda fields, value: fields.update({"subject": value}),
-    "Received": lambda fields, value: fields.update({
-        "date_received": (datetime.datetime.strptime(((value.split(';')[1]).strip()).split(" (")[0], "%a, %d %b %Y %H:%M:%S %z")).astimezone(datetime.timezone.utc)
+    "Date": lambda fields, value: fields.update({
+        "date_received": parse_datetime_email(value)
     }),
 }
 

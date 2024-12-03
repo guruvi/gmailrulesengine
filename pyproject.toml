@@ -32,3 +32,6 @@ dev = [
 markers = [
     "gmail_client",
 ]
+
+[tool.pdm.scripts]
+fetch-emails = "python fetch_email_main.py"
