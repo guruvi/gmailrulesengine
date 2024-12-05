@@ -13,7 +13,7 @@ def test_should_raise_value_error_when_the_auth_scopes_list_is_empty():
 
 
 def test_should_raise_file_not_found_error_when_credentials_file_does_not_exists():
-    test_scopes = ("https://www.googleapis.com/auth/drive.readonly")
+    test_scopes = "https://www.googleapis.com/auth/drive.readonly"
 
     with mock.patch("os.path.exists", return_value=False), pytest.raises(
         FileNotFoundError, match="Credentials file not found"
@@ -85,14 +85,8 @@ def test_should_list_all_emails(mock_build_google_service):
         mock_build_google_service.return_value = service
         service.users.return_value.messages.return_value.list.return_value.execute.return_value = {
             "messages": [
-                {
-                    "id": "19380f65a0cd3791",
-                    "threadId": "19380664d0cd9a9b"
-                },
-                {
-                    "id": "19380f4b5b231e0e",
-                    "threadId": "19380f4b5b231e0e"
-                },
+                {"id": "19380f65a0cd3791", "threadId": "19380664d0cd9a9b"},
+                {"id": "19380f4b5b231e0e", "threadId": "19380f4b5b231e0e"},
             ]
         }
         response = list_email(user_id="test_user_id")
@@ -105,14 +99,8 @@ def test_should_list_all_emails(mock_build_google_service):
         # Add assertion for list message to be correctly invoked
         assert response == {
             "messages": [
-                {
-                    "id": "19380f65a0cd3791",
-                    "threadId": "19380664d0cd9a9b"
-                },
-                {
-                    "id": "19380f4b5b231e0e",
-                    "threadId": "19380f4b5b231e0e"
-                },
+                {"id": "19380f65a0cd3791", "threadId": "19380664d0cd9a9b"},
+                {"id": "19380f4b5b231e0e", "threadId": "19380f4b5b231e0e"},
             ]
         }
 
@@ -177,7 +165,9 @@ def test_should_get_message_based_on_message_id(mock_build_google_service):
             get_message_response
         )
 
-        response = get_email_message(user_id="test_user_id", message_id="19380f65a0cd3791")
+        response = get_email_message(
+            user_id="test_user_id", message_id="19380f65a0cd3791"
+        )
 
         mock_build_google_service.assert_called_once_with(
             "gmail",

@@ -31,6 +31,9 @@ dev = [
 [tool.pytest.ini_options]
 markers = [
     "gmail_client",
+    "applyrules",
+    "email_db_service",
+    "fetch_and_store_email"
 ]
 
 [tool.pdm.scripts]

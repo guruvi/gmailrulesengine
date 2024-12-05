@@ -16,11 +16,11 @@ def test_should_insert_email_into_db():
         from_address="abc@gmail.com",
         to_address="def@gmail.com",
         date_received=datetime.datetime.now(tz=datetime.timezone.utc),
-        subject="Test Email"
+        subject="Test Email",
     )
     create_email(email=email_data)
 
-    email = Email.objects().get(Email.email_id==email_data.reference_id).run_sync()
+    email = Email.objects().get(Email.email_id == email_data.reference_id).run_sync()
     assert email.email_id == email_data.reference_id
     assert email.gmail_message_id == email_data.gmail_message_id
     assert email.from_address == email_data.from_address

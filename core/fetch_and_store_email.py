@@ -11,6 +11,7 @@ from core.services.gmail.client import get_email_message, list_email
 
 LOGGER: logging.Logger = logging.getLogger(name=__name__)
 
+
 def parse_datetime_email(value: str) -> datetime.datetime:
     """Parse the datetime string to datetime object.
 
@@ -26,18 +27,20 @@ def parse_datetime_email(value: str) -> datetime.datetime:
         except ValueError:
             pass
 
+
 # Mapping header names to actions
 HEADER_HANDLERS: dict[str, Any] = {
     "From": lambda fields, value: fields.update({"from_address": value}),
     "To": lambda fields, value: fields.update({"to_address": value}),
     "Subject": lambda fields, value: fields.update({"subject": value}),
-    "Date": lambda fields, value: fields.update({
-        "date_received": parse_datetime_email(value)
-    }),
+    "Date": lambda fields, value: fields.update(
+        {"date_received": parse_datetime_email(value)}
+    ),
 }
 
+
 def process(*, user_id: str):
-    """     
+    """
     Fetch and store email from Gmail API.
 
     :param user_id: User's email id
@@ -55,7 +58,7 @@ def process(*, user_id: str):
             value: Any = header.get("value")
             if name in HEADER_HANDLERS:
                 HEADER_HANDLERS[name](email_data_fields, value)
-        email_data_fields.update({'gmail_message_id': email_message["id"]})
+        email_data_fields.update({"gmail_message_id": email_message["id"]})
         email_data = EmailData(**email_data_fields)
         create_email(email=email_data)
     LOGGER.info("Email has been successfully fetched and stored in the database.")

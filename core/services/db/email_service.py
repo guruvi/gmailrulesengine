@@ -9,6 +9,7 @@ from gmail_rules_engine.tables import Email
 
 LOGGER: logging.Logger = logging.getLogger(name=__name__)
 
+
 def create_email(*, email: EmailData) -> Email:
     """
     Create an email record in the database.

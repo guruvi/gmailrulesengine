@@ -12,12 +12,7 @@ pytestmark = pytest.mark.fetch_and_store_email
 @mock.patch("core.fetch_and_store_email.get_email_message")
 def test_should_fetch_and_store_email(get_email_message_mock, list_email_mock):
     list_email_mock.return_value = {
-        "messages": [
-            {
-                "id": "19380f65a0cd3791",
-                "threadId": "19380664d0cd9a9b"
-            }
-        ]
+        "messages": [{"id": "19380f65a0cd3791", "threadId": "19380664d0cd9a9b"}]
     }
     get_email_message_mock.return_value = {
         "id": "19380f65a0cd3791",
@@ -50,12 +45,22 @@ def test_should_fetch_and_store_email(get_email_message_mock, list_email_mock):
         "historyId": "9474857",
         "internalDate": "1733033187000",
     }
-    
-    process(user_id='abcd@gmail.com')
 
-    email: Email = Email.objects().get(Email.gmail_message_id == "19380f65a0cd3791").run_sync()
+    process(user_id="abcd@gmail.com")
+
+    email: Email = (
+        Email.objects().get(Email.gmail_message_id == "19380f65a0cd3791").run_sync()
+    )
     assert email.gmail_message_id == "19380f65a0cd3791"
     assert email.from_address == "kblalerts@ktkbank.in"
     assert email.to_address == "abcde@gmail.com"
-    assert email.date_received == datetime.datetime(year=2024, month=12, day=1, hour=6, minute=6, second=27, tzinfo=datetime.timezone.utc)
+    assert email.date_received == datetime.datetime(
+        year=2024,
+        month=12,
+        day=1,
+        hour=6,
+        minute=6,
+        second=27,
+        tzinfo=datetime.timezone.utc,
+    )
     assert email.subject == "****** BANK- Transaction EMAIL Alert ******"
