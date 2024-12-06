@@ -3,7 +3,10 @@
 
 from core.services.gmail.client import batch_update_labels
 
-def execute_gmail_actions(user_id: str, message_ids: list[str], actions_config: dict) -> None:
+
+def execute_gmail_actions(
+    user_id: str, message_ids: list[str], actions_config: dict
+) -> None:
     """
     Invoke the Google API to update labels after converting the actions to labels.
 
@@ -23,6 +26,7 @@ def execute_gmail_actions(user_id: str, message_ids: list[str], actions_config: 
         add_labels=add_labels,
         remove_labels=remove_labels,
     )
+
 
 def convert_actions_to_labels(actions_config: dict) -> tuple[list[str], list[str]]:
     """

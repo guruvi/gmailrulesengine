@@ -205,7 +205,9 @@ def test_should_batch_modify_labels(mock_build_google_service):
         mock_flow.return_value.run_local_server.return_value = mock_credentials
         service = mock.MagicMock()
         mock_build_google_service.return_value = service
-        service.users.return_value.messages.return_value.batchModify.return_value.execute.return_value = {}
+        service.users.return_value.messages.return_value.batchModify.return_value.execute.return_value = (
+            {}
+        )
         response = batch_update_labels(
             user_id="test_user_id",
             message_ids=["19380f65a0cd3791"],

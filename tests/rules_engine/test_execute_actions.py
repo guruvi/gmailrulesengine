@@ -4,7 +4,10 @@
 from unittest import mock
 import pytest
 
-from core.rules_engine.execute_actions import convert_actions_to_labels, execute_gmail_actions
+from core.rules_engine.execute_actions import (
+    convert_actions_to_labels,
+    execute_gmail_actions,
+)
 
 
 pytestmark = pytest.mark.execute_actions
@@ -62,7 +65,7 @@ def test_convert_actions_to_labels(test_input, expected):
 
 @mock.patch("core.rules_engine.execute_actions.batch_update_labels")
 def test_should_invoke_gmail_actions_to_update_labels(mock_batch_update_labels):
-    actions_config ={
+    actions_config = {
         "actions": {
             "move": "INBOX",
             "mark": ["UNREAD", "UNIMPORTANT"],

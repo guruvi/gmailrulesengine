@@ -110,7 +110,11 @@ def batch_update_labels(
         .messages()
         .batchModify(
             userId=user_id,
-            body={"ids": message_ids, "addLabelIds": add_labels, "removeLabelIds": remove_labels},
+            body={
+                "ids": message_ids,
+                "addLabelIds": add_labels,
+                "removeLabelIds": remove_labels,
+            },
         )
         .execute()
     )
