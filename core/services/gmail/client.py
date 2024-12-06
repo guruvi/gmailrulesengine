@@ -108,10 +108,9 @@ def batch_update_labels(
     results = (
         service.users()
         .messages()
-        .modify(
+        .batchModify(
             userId=user_id,
-            id=message_ids,
-            body={"addLabelIds": add_labels, "removeLabelIds": remove_labels},
+            body={"ids": message_ids, "addLabelIds": add_labels, "removeLabelIds": remove_labels},
         )
         .execute()
     )
