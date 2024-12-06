@@ -30,7 +30,7 @@ make install
 make setup-db
 ```
 
-4. Update the value in environment variable
+4. Update the path of the credentials.json file in environment variable
 ```
 export PATH_TO_CREDENTIALS_JSON="<path_to_json_credentials_json>"
 ```

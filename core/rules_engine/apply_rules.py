@@ -5,7 +5,7 @@ from typing import Any
 from gmail_rules_engine.tables import Email
 from piccolo.columns.combination import And, Or, Where
 from datetime import datetime, timedelta, timezone
-from core.rules_engine.constants import RulesEngineConstants
+from core.rules_engine.constants import RulesEngineConstants, DateTimeFieldPredicates, StringFieldPredicates, RulesPredicate
 
 
 def construct_query(rule_config: dict) -> And | Or:
@@ -78,9 +78,9 @@ def combine_where_clauses(*, where_clauses: list[Any], matcher: str) -> And | Or
 
     for clause in where_clauses[1:]:
         match matcher:
-            case "all":
+            case RulesPredicate.ALL:
                 filter_query &= clause
-            case "any":
+            case RulesPredicate.ANY:
                 filter_query |= clause
             case _:
                 raise NotImplementedError("Rule combination not implemented.")
@@ -129,13 +129,13 @@ def column_match_for_str_types(*, field_name: str, value: str, predicate: str) -
     :rtype: str
     """
     match predicate.lower():
-        case "equals":
+        case StringFieldPredicates.EQUALS:
             return fetch_column_name(field_name=field_name) == value
-        case "not equals":
+        case StringFieldPredicates.NOT_EQUALS:
             return fetch_column_name(field_name=field_name) != value
-        case "contains":
+        case StringFieldPredicates.CONTAINS:
             return fetch_column_name(field_name=field_name).like(f"%{value}%")
-        case "does not contains":
+        case StringFieldPredicates.DOES_NOT_CONTAINS:
             return fetch_column_name(field_name=field_name).not_like(f"%{value}%")
         case _:
             raise NotImplementedError("Rule type not implemented.")
@@ -161,11 +161,11 @@ def column_match_for_datetime_types(
     """
     current_datetime: datetime.datetime = datetime.now(tz=timezone.utc)
     match predicate.lower():
-        case "less than days":
+        case DateTimeFieldPredicates.LESS_THAN_DAYS:
             return fetch_column_name(
                 field_name=field_name
             ) > current_datetime - timedelta(days=value)
-        case "greater than days":
+        case DateTimeFieldPredicates.GREATER_THAN_DAYS:
             return fetch_column_name(
                 field_name=field_name
             ) < current_datetime - timedelta(days=value)
