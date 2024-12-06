@@ -51,3 +51,8 @@ pdm run fetch-emails <email_id>
 ```bash
 pdm run apply-rules <email_id>
 ```
+
+9. Teardown
+```bash
+make teardown
+```
