@@ -84,10 +84,10 @@ def get_email_message(*, user_id: str, message_id: str) -> dict[str, Any]:
     return results
 
 
-def update_labels(
-    *, 
+def batch_update_labels(
+    *,
     user_id: str,
-    message_id: str,
+    message_ids: list[str],
     add_labels: list[str],
     remove_labels: list[str],
 ) -> dict[str, Any]:
@@ -110,7 +110,7 @@ def update_labels(
         .messages()
         .modify(
             userId=user_id,
-            id=message_id,
+            id=message_ids,
             body={"addLabelIds": add_labels, "removeLabelIds": remove_labels},
         )
         .execute()

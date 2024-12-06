@@ -2,7 +2,12 @@ from typing import Any
 from unittest import mock
 import pytest
 
-from core.services.gmail.client import get_access_token, get_email_message, list_email, update_labels
+from core.services.gmail.client import (
+    get_access_token,
+    get_email_message,
+    list_email,
+    batch_update_labels,
+)
 
 pytestmark = pytest.mark.gmail_client
 
@@ -179,7 +184,7 @@ def test_should_get_message_based_on_message_id(mock_build_google_service):
 
 
 @mock.patch("core.services.gmail.client.build")
-def test_should_move_messages(mock_build_google_service):
+def test_should_batch_modify_labels(mock_build_google_service):
     get_access_token.cache_clear()
     with mock.patch(
         "core.services.gmail.client.InstalledAppFlow.from_client_secrets_file"
@@ -198,23 +203,19 @@ def test_should_move_messages(mock_build_google_service):
             "expiry": "2024-11-30T18:02:43.682924Z",
         }
         mock_flow.return_value.run_local_server.return_value = mock_credentials
-        update_label_response: dict[str, Any] ={
+        update_label_response: dict[str, Any] = {
             "id": "1938cfc691061d46",
             "threadId": "1938cfc691061d46",
-            "labelIds": [
-                "CATEGORY_PROMOTIONS",
-                "UNREAD",
-                "INBOX"
-            ]
+            "labelIds": ["CATEGORY_PROMOTIONS", "UNREAD", "INBOX"],
         }
         service = mock.MagicMock()
         mock_build_google_service.return_value = service
         service.users.return_value.messages.return_value.modify.return_value.execute.return_value = (
             update_label_response
         )
-        response = update_labels(
+        response = batch_update_labels(
             user_id="test_user_id",
-            message_id="19380f65a0cd3791",
+            message_ids=["19380f65a0cd3791"],
             add_labels=["INBOX"],
             remove_labels=["UNREAD"],
         )
