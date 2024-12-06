@@ -43,12 +43,21 @@ def get_access_token(*, scopes: tuple) -> Credentials:
         raise e
 
 
-def list_email(*, user_id: str) -> dict[str, Any]:
+def list_email(*, user_id: str, page_size: int=100, page_token: str=None) -> dict[str, Any]:
     """
     List the user's Gmail labels.
 
     :param user_id: User id
     :type user_id: str
+
+    :param page_size: Page size
+    :type page_size: int
+
+    :param page_token: Page token
+    :type page_token: str
+
+    :returns: Email list messages response
+    :rtype: dict
     """
     LOGGER.info("Invoking Gmail messages list API")
     credentials = get_access_token(scopes=("https://mail.google.com/",))
@@ -58,8 +67,11 @@ def list_email(*, user_id: str) -> dict[str, Any]:
     results = (
         service.users()
         .messages()
-        .list(userId=user_id, maxResults=10, labelIds=["INBOX"])
-        .execute()
+        .list(
+            userId=user_id,
+            maxResults=page_size,
+            page_token=page_token,
+        ).execute()
     )
     LOGGER.info("Gmail list message API response successful.")
     return results
