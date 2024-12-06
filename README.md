@@ -28,3 +28,15 @@ make setup
 ```bash
 make test
 ```
+
+4. Run fetch emails
+```bash
+pdm run fetch-emails <email_id>
+```
+
+5. Edit the rules_config file under the root rules_config
+
+6. Run the rules engine
+```bash
+pdm run apply-rules <email_id>
+```
