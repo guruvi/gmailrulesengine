@@ -5,7 +5,7 @@ import logging
 
 from core.pydantic_models import EmailData
 from gmail_rules_engine.tables import Email
-from piccolo.columns.combination import And, Or
+from piccolo.columns.combination import And, Or, Where
 
 
 LOGGER: logging.Logger = logging.getLogger(name=__name__)
@@ -32,3 +32,19 @@ def create_email(*, email: EmailData) -> Email:
     ).save().run_sync()
     LOGGER.info("Email record has been successfully created in the database.")
     return Email
+
+
+def filter_emails(*, query: Where | And | Or ) -> list[Email]:
+    """
+    Query emails from the database.
+
+    :param query: Query string
+    :type query:  Where | And | Or
+
+    :return: List of emails
+    :rtype: list[Email]
+    """
+    LOGGER.info("Querying emails from the database")
+    emails: list[Email] = Email.objects().where(query).run_sync()
+    LOGGER.info("Emails have been successfully queried from the database.")
+    return emails
