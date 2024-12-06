@@ -45,7 +45,7 @@ make test
 pdm run fetch-emails <email_id>
 ```
 
-7. Edit the rules_config file under the root rules_config
+7. Edit the rules_config file under the root directory: rules_config.py
 
 8. Run the rules engine
 ```bash
