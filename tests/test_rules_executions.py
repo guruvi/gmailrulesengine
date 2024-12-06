@@ -31,6 +31,6 @@ def test_rules_executions(mock_gmail_actions, mock_filter_emails, mock_construct
                 "move": "INBOX",
                 "mark": ["UNREAD", "IMPORTANT"],
             },
-        }
+        },
     )
     # Assertions to be completed
