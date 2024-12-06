@@ -5,6 +5,7 @@ from typing import Any
 from gmail_rules_engine.tables import Email
 from piccolo.columns.combination import And, Or, Where
 from datetime import datetime, timedelta, timezone
+from core.rules_engine.constants import RulesEngineConstants
 
 
 def construct_query(rule_config: dict) -> And | Or:
@@ -40,25 +41,25 @@ def match_conditions(*, conditions: list[dict[str, Any]]) -> list[Where]:
     """
     where_clauses: list[Any] = []
     for rule in conditions:
-        match rule["type"]:
-            case "string":
-                where_clauses.append(
-                    column_match_for_str_types(
-                        field_name=rule["field"],
-                        value=rule["value"],
-                        predicate=rule["predicate"],
-                    )
+        field: str = rule["field"]
+        if field in RulesEngineConstants.STRING_FIELDS:
+            where_clauses.append(
+                column_match_for_str_types(
+                    field_name=rule["field"],
+                    value=rule["value"],
+                    predicate=rule["predicate"],
                 )
-            case "datetime":
-                where_clauses.append(
-                    column_match_for_datetime_types(
-                        field_name=rule["field"],
-                        value=rule["value"],
-                        predicate=rule["predicate"],
-                    )
+            )
+        elif field in RulesEngineConstants.DATETIME_FIELDS:
+            where_clauses.append(
+                column_match_for_datetime_types(
+                    field_name=rule["field"],
+                    value=rule["value"],
+                    predicate=rule["predicate"],
                 )
-            case _:
-                raise NotImplementedError("Rule type not implemented.")
+            )
+        else:
+            raise NotImplementedError("Rule type not implemented.")
     return where_clauses
 
 

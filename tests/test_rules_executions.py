@@ -6,7 +6,9 @@ from core.rules_executions import execute
 @mock.patch("core.rules_executions.construct_query")
 @mock.patch("core.rules_executions.filter_emails")
 @mock.patch("core.rules_executions.execute_gmail_actions")
-def test_should_not_call_gmail_apis_when_no_emails_filtered_for_the_rule(mock_gmail_actions, mock_filter_emails, mock_construct_query):
+def test_should_not_call_gmail_apis_when_no_emails_filtered_for_the_rule(
+    mock_gmail_actions, mock_filter_emails, mock_construct_query
+):
     mock_filter_emails.return_value = []
     execute(
         user_id="abcde@gmail.com",

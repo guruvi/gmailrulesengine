@@ -3,7 +3,6 @@ sample_rule = {
         "conditions": [
             {
                 "field": "from_address",
-                "type": "string",
                 "predicate": "contains",
                 "value": "naukri",
             },

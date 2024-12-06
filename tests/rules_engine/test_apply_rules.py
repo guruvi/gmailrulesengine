@@ -115,19 +115,16 @@ def test_construct_query_based_on_all_query_rules_match(mock_datetime):
             "conditions": [
                 {
                     "field": "from_address",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "example.com",
                 },
                 {
                     "field": "subject",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "Hello World",
                 },
                 {
                     "field": "to_address",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "abc@gmail.com",
                 },
@@ -153,19 +150,16 @@ def test_construct_query_based_on_any_query_rules_match():
             "conditions": [
                 {
                     "field": "from_address",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "example.com",
                 },
                 {
                     "field": "subject",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "Hello World",
                 },
                 {
                     "field": "to_address",
-                    "type": "string",
                     "predicate": "equals",
                     "value": "abc@gmail.com",
                 },
