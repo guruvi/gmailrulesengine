@@ -12,11 +12,12 @@ install:
 setup:
 	@ rm -rf gmailrulesengine.sqlite
 	@ touch gmailrulesengine.sqlite
+	@ touch testgmailrulesengine.sqlite
 	@ pdm install -v --no-self;
 	@ pdm run piccolo migrations forwards gmail_rules_engine;
 
 test:
-	@ pdm run pytest;
+	@ pdm run DATABASE_NAME=testgmailrulesengine.sqlite pytest;
 
 create-migrations:
 	@ pdm run piccolo migrations new gmail_rules_engine --auto;

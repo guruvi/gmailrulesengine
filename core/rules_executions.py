@@ -25,5 +25,5 @@ def execute(*, user_id: str, config_dict: dict) -> None:
     execute_gmail_actions(
         user_id=user_id,
         message_ids=[message.gmail_message_id for message in messages],
-        actions_config=config_dict["actions"],
-    )
+        actions_config=config_dict,
+    ) if messages else None

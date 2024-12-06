@@ -2,22 +2,16 @@ sample_rule = {
     "rules": {
         "conditions": [
             {
-                "field": "from_address",
-                "type": "string",
-                "predicate": "contains",
-                "value": "ktkbank.in",
-            },
-            {
-                "field": "subject",
-                "type": "string",
-                "predicate": "contains",
-                "value": "Secret to building wealth! Click now",
+                "field": "date",
+                "type": "datetime",
+                "predicate": "greater than days",
+                "value": 100,
             },
         ],
         "match": "all",
     },
     "actions": {
-        "move": "INBOX",
-        "mark": ["UNREAD", "IMPORTANT"],
+        "move": "TRASH",
+        "mark": ["READ", "UNIMPORTANT"],
     },
 }

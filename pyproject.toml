@@ -38,5 +38,5 @@ markers = [
 ]
 
 [tool.pdm.scripts]
-fetch-emails = "python fetch_email_main.py"
-apply-rules = "python rules_and_executions.py"
+fetch-emails = "env DATABASE_NAME=gmailrulesengine.sqlite python fetch_email_main.py"
+apply-rules = "env DATABASE_NAME=gmailrulesengine.sqlite python rules_and_executions.py"

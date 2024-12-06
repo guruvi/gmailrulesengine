@@ -4,7 +4,7 @@
 from typing import Any
 from gmail_rules_engine.tables import Email
 from piccolo.columns.combination import And, Or, Where
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 
 def construct_query(rule_config: dict) -> And | Or:
@@ -158,7 +158,7 @@ def column_match_for_datetime_types(
     :return: Query string
     :rtype: str
     """
-    current_datetime: datetime.datetime = datetime.now(tz=datetime.timezone.utc)
+    current_datetime: datetime.datetime = datetime.now(tz=timezone.utc)
     match predicate.lower():
         case "less than days":
             return fetch_column_name(
