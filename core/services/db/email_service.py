@@ -34,7 +34,7 @@ def create_email(*, email: EmailData) -> Email:
     return Email
 
 
-def filter_emails(*, query: Where | And | Or ) -> list[Email]:
+def filter_emails(*, query: Where | And | Or) -> list[Email]:
     """
     Query emails from the database.
 

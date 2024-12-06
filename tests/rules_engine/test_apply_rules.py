@@ -82,7 +82,9 @@ def test_column_matches_for_date_type_fields():
     Test column matches for date type fields.
     """
     # Test the different predicates for string type fields
-    current_utc_time: datetime.datetime = datetime.datetime.now(tz=datetime.timezone.utc)
+    current_utc_time: datetime.datetime = datetime.datetime.now(
+        tz=datetime.timezone.utc
+    )
     with mock.patch("core.rules_engine.apply_rules.datetime") as mock_datetime:
         mock_datetime.now.return_value = current_utc_time
         _assert_column_value(
@@ -102,7 +104,9 @@ def test_column_matches_for_date_type_fields():
 
 @mock.patch("core.rules_engine.apply_rules.datetime")
 def test_construct_query_based_on_all_query_rules_match(mock_datetime):
-    current_utc_time: datetime.datetime = datetime.datetime.now(tz=datetime.timezone.utc)
+    current_utc_time: datetime.datetime = datetime.datetime.now(
+        tz=datetime.timezone.utc
+    )
     mock_datetime.now.return_value = current_utc_time
     # Sample rule configurations
     all_rules_config = {

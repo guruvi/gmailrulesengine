@@ -140,7 +140,9 @@ def column_match_for_str_types(*, field_name: str, value: str, predicate: str) -
             raise NotImplementedError("Rule type not implemented.")
 
 
-def column_match_for_datetime_types(*, field_name: str, value: int, predicate: str) -> str:
+def column_match_for_datetime_types(
+    *, field_name: str, value: int, predicate: str
+) -> str:
     """
     This method contains the logic for applying rules on datetime types.
 
@@ -159,8 +161,12 @@ def column_match_for_datetime_types(*, field_name: str, value: int, predicate: s
     current_datetime: datetime.datetime = datetime.now(tz=datetime.timezone.utc)
     match predicate.lower():
         case "less than days":
-            return fetch_column_name(field_name=field_name) > current_datetime - timedelta(days=value)
+            return fetch_column_name(
+                field_name=field_name
+            ) > current_datetime - timedelta(days=value)
         case "greater than days":
-            return fetch_column_name(field_name=field_name) < current_datetime - timedelta(days=value)
+            return fetch_column_name(
+                field_name=field_name
+            ) < current_datetime - timedelta(days=value)
         case _:
             raise NotImplementedError("Rule type not implemented.")

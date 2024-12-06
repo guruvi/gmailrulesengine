@@ -40,7 +40,7 @@ def test_email_query_filter():
     )
     create_email(email=email_data)
     # Filter condition
-    query = Email.from_address == 'abcdef@gmail.com'
+    query = Email.from_address == "abcdef@gmail.com"
     result_email = filter_emails(query=query)[0]
 
     assert result_email.email_id == email_data.reference_id
