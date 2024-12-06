@@ -82,3 +82,38 @@ def get_email_message(*, user_id: str, message_id: str) -> dict[str, Any]:
     results = service.users().messages().get(userId=user_id, id=message_id).execute()
     LOGGER.info("Gmail get message API response successful.")
     return results
+
+
+def update_labels(
+    *, 
+    user_id: str,
+    message_id: str,
+    add_labels: list[str],
+    remove_labels: list[str],
+) -> dict[str, Any]:
+    """
+    Move the message from one label to another.
+
+    :param source_label: Source label
+    :type source_label: str
+
+    :param destination_label: Destination label
+    :type destination_label: str
+    """
+    LOGGER.info("Invoking Gmail messages move API")
+    credentials = get_access_token(scopes=("https://mail.google.com/",))
+    if not credentials.valid:
+        credentials = get_access_token(scopes=("https://mail.google.com/",))
+    service: Resource = build("gmail", "v1", credentials=credentials)
+    results = (
+        service.users()
+        .messages()
+        .modify(
+            userId=user_id,
+            id=message_id,
+            body={"addLabelIds": add_labels, "removeLabelIds": remove_labels},
+        )
+        .execute()
+    )
+    LOGGER.info("Gmail move message API response successful.")
+    return results

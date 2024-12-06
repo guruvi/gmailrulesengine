@@ -2,7 +2,7 @@ from typing import Any
 from unittest import mock
 import pytest
 
-from core.services.gmail.client import get_access_token, get_email_message, list_email
+from core.services.gmail.client import get_access_token, get_email_message, list_email, update_labels
 
 pytestmark = pytest.mark.gmail_client
 
@@ -176,3 +176,53 @@ def test_should_get_message_based_on_message_id(mock_build_google_service):
         )
         # Add assertion for get message to be correctly invoked
         assert response == get_message_response
+
+
+@mock.patch("core.services.gmail.client.build")
+def test_should_move_messages(mock_build_google_service):
+    get_access_token.cache_clear()
+    with mock.patch(
+        "core.services.gmail.client.InstalledAppFlow.from_client_secrets_file"
+    ) as mock_flow:
+        mock_credentials = mock.MagicMock()
+        mock_credentials.valid = True
+        mock_credentials.to_json.return_value = {
+            "token": "token",
+            "refresh_token": "refresh_token",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "client_id": "client_id.apps.googleusercontent.com",
+            "client_secret": "client_secret",
+            "scopes": ["https://mail.google.com/"],
+            "universe_domain": "googleapis.com",
+            "account": "",
+            "expiry": "2024-11-30T18:02:43.682924Z",
+        }
+        mock_flow.return_value.run_local_server.return_value = mock_credentials
+        update_label_response: dict[str, Any] ={
+            "id": "1938cfc691061d46",
+            "threadId": "1938cfc691061d46",
+            "labelIds": [
+                "CATEGORY_PROMOTIONS",
+                "UNREAD",
+                "INBOX"
+            ]
+        }
+        service = mock.MagicMock()
+        mock_build_google_service.return_value = service
+        service.users.return_value.messages.return_value.modify.return_value.execute.return_value = (
+            update_label_response
+        )
+        response = update_labels(
+            user_id="test_user_id",
+            message_id="19380f65a0cd3791",
+            add_labels=["INBOX"],
+            remove_labels=["UNREAD"],
+        )
+
+        mock_build_google_service.assert_called_once_with(
+            "gmail",
+            "v1",
+            credentials=mock_credentials,
+        )
+        # Add assertion for get message to be correctly invoked
+        assert response == update_label_response
