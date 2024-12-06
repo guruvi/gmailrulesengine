@@ -2,16 +2,16 @@ sample_rule = {
     "rules": {
         "conditions": [
             {
-                "field": "date",
-                "type": "datetime",
-                "predicate": "greater than days",
-                "value": 100,
+                "field": "from_address",
+                "type": "string",
+                "predicate": "contains",
+                "value": "naukri",
             },
         ],
         "match": "all",
     },
     "actions": {
-        "move": "TRASH",
-        "mark": ["READ", "UNIMPORTANT"],
+        "move": "INBOX",
+        "mark": ["READ"],
     },
 }

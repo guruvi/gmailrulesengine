@@ -1,3 +1,4 @@
+import os
 from typing import Any
 from unittest import mock
 import pytest
@@ -49,7 +50,7 @@ def test_get_access_token():
 
         assert result == mock_credentials
         mock_flow.assert_called_once_with(
-            "/Users/guruvi/Downloads/credentials.json", ["scope1", "scope2"]
+            os.getenv("PATH_TO_CREDENTIALS_JSON"), ["scope1", "scope2"]
         )
         mock_flow.return_value.run_local_server.assert_called_once_with(port=0)
 

@@ -30,19 +30,24 @@ make setup-db
 make install
 ```
 
-4. Verify the setup by running tests:
+4. Update the value in environment variable
+```
+export PATH_TO_CREDENTIALS_JSON="<path_to_json_credentials_json>"
+```
+
+5. Verify the setup by running tests:
 ```bash
 make test
 ```
 
-4. Run fetch emails
+6. Run fetch emails
 ```bash
 pdm run fetch-emails <email_id>
 ```
 
-5. Edit the rules_config file under the root rules_config
+7. Edit the rules_config file under the root rules_config
 
-6. Run the rules engine
+8. Run the rules engine
 ```bash
 pdm run apply-rules <email_id>
 ```
