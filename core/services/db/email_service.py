@@ -2,6 +2,7 @@
 
 
 import logging
+import sqlite3
 
 from core.pydantic_models import EmailData
 from gmail_rules_engine.tables import Email
@@ -22,14 +23,18 @@ def create_email(*, email: EmailData) -> Email:
     :rtype: Email
     """
     LOGGER.info("Creating email record in the database")
-    Email(
-        email_id=email.reference_id,
-        gmail_message_id=email.gmail_message_id,
-        from_address=email.from_address,
-        to_address=email.to_address,
-        date_received=email.date_received,
-        subject=email.subject,
-    ).save().run_sync()
+    try:
+        Email(
+            email_id=email.reference_id,
+            gmail_message_id=email.gmail_message_id,
+            from_address=email.from_address,
+            to_address=email.to_address,
+            date_received=email.date_received,
+            subject=email.subject,
+        ).save().run_sync()
+    except sqlite3.IntegrityError as ex:
+        pass
+
     LOGGER.info("Email record has been successfully created in the database.")
     return Email
 

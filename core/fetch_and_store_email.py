@@ -52,7 +52,6 @@ def process(*, user_id: str):
         email_message = get_email_message(user_id=user_id, message_id=email["id"])
         # Process email headers
         email_data_fields: dict[str, Any] = {}
-        print(email_message["id"])
         for header in email_message["payload"]["headers"]:
             name: str = header.get("name")
             value: Any = header.get("value")
