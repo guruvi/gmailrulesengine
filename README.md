@@ -20,11 +20,17 @@ cd gmailrulesengine
 ```
 
 2. Run the following command to install dependencies and set up the project:
+#### Caution: Do not to run this setup if you have setup already as this will delete existing data!
 ```bash
-make setup
+make setup-db
 ```
 
-3. Verify the setup by running tests:
+3. Install all the required dependencies
+```bash
+make install
+```
+
+4. Verify the setup by running tests:
 ```bash
 make test
 ```
