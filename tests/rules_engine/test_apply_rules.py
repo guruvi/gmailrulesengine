@@ -1,7 +1,10 @@
+import datetime
+from unittest import mock
 import pytest
 
 from piccolo.columns.combination import And, Or
 from core.rules_engine.apply_rules import (
+    column_match_for_datetime_types,
     column_match_for_str_types,
     construct_query,
     fetch_column_name,
@@ -74,7 +77,33 @@ def test_column_matches_for_string_type_fields():
         )
 
 
-def test_construct_query_based_on_all_query_rules_match():
+def test_column_matches_for_date_type_fields():
+    """
+    Test column matches for date type fields.
+    """
+    # Test the different predicates for string type fields
+    current_utc_time: datetime.datetime = datetime.datetime.now(tz=datetime.timezone.utc)
+    with mock.patch("core.rules_engine.apply_rules.datetime") as mock_datetime:
+        mock_datetime.now.return_value = current_utc_time
+        _assert_column_value(
+            column_match_for_datetime_types(
+                field_name="date", value=1, predicate="less than days"
+            ),
+            (Email.date_received > current_utc_time - datetime.timedelta(days=1)),
+        )
+
+        _assert_column_value(
+            column_match_for_datetime_types(
+                field_name="date", value=2, predicate="greater than days"
+            ),
+            (Email.date_received < current_utc_time - datetime.timedelta(days=2)),
+        )
+
+
+@mock.patch("core.rules_engine.apply_rules.datetime")
+def test_construct_query_based_on_all_query_rules_match(mock_datetime):
+    current_utc_time: datetime.datetime = datetime.datetime.now(tz=datetime.timezone.utc)
+    mock_datetime.now.return_value = current_utc_time
     # Sample rule configurations
     all_rules_config = {
         "rules": {

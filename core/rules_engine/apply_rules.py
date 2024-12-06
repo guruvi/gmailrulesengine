@@ -4,6 +4,7 @@
 from typing import Any
 from gmail_rules_engine.tables import Email
 from piccolo.columns.combination import And, Or, Where
+from datetime import datetime, timedelta
 
 
 def construct_query(rule_config: dict) -> And | Or:
@@ -43,6 +44,14 @@ def match_conditions(*, conditions: list[dict[str, Any]]) -> list[Where]:
             case "string":
                 where_clauses.append(
                     column_match_for_str_types(
+                        field_name=rule["field"],
+                        value=rule["value"],
+                        predicate=rule["predicate"],
+                    )
+                )
+            case "datetime":
+                where_clauses.append(
+                    column_match_for_datetime_types(
                         field_name=rule["field"],
                         value=rule["value"],
                         predicate=rule["predicate"],
@@ -127,5 +136,31 @@ def column_match_for_str_types(*, field_name: str, value: str, predicate: str) -
             return fetch_column_name(field_name=field_name).like(f"%{value}%")
         case "does not contains":
             return fetch_column_name(field_name=field_name).not_like(f"%{value}%")
+        case _:
+            raise NotImplementedError("Rule type not implemented.")
+
+
+def column_match_for_datetime_types(*, field_name: str, value: int, predicate: str) -> str:
+    """
+    This method contains the logic for applying rules on datetime types.
+
+    :param field_name: Field name
+    :type field_name: str
+
+    :param value: value
+    :type value: int
+
+    :param predicate: Predicate
+    :type predicate: str
+
+    :return: Query string
+    :rtype: str
+    """
+    current_datetime: datetime.datetime = datetime.now(tz=datetime.timezone.utc)
+    match predicate.lower():
+        case "less than days":
+            return fetch_column_name(field_name=field_name) > current_datetime - timedelta(days=value)
+        case "greater than days":
+            return fetch_column_name(field_name=field_name) < current_datetime - timedelta(days=value)
         case _:
             raise NotImplementedError("Rule type not implemented.")

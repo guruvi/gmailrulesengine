@@ -5,6 +5,7 @@ import logging
 
 from core.pydantic_models import EmailData
 from gmail_rules_engine.tables import Email
+from piccolo.columns.combination import And, Or
 
 
 LOGGER: logging.Logger = logging.getLogger(name=__name__)
