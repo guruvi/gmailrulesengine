@@ -98,15 +98,15 @@ def fetch_column_name(*, field_name: str) -> str:
     :return: Column name
     :rtype: str
     """
-    field_name_with_lowercase = field_name.lower() if field_name else ""
-    match field_name_with_lowercase:
+    field_name_in_lowercase: str = field_name.lower() if field_name else ""
+    match field_name_in_lowercase:
         case "from_address":
             return Email.from_address
         case "to_address":
             return Email.to_address
         case "subject":
             return Email.subject
-        case "date":
+        case "date_received":
             return Email.date_received
         case _:
             raise AttributeError("Invalid field name")

@@ -7,7 +7,7 @@ sample_rule = {
                 "value": "guru",
             },
             {
-                "field": "date",
+                "field": "date_received",
                 "predicate": "less than days",
                 "value": 1,
             },

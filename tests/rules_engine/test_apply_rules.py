@@ -23,13 +23,13 @@ def test_fetch_column_name_valid():
     assert fetch_column_name(field_name="from_address") == Email.from_address
     assert fetch_column_name(field_name="to_address") == Email.to_address
     assert fetch_column_name(field_name="subject") == Email.subject
-    assert fetch_column_name(field_name="Date") == Email.date_received
+    assert fetch_column_name(field_name="Date_received") == Email.date_received
 
     # Test case insensitivity
     assert fetch_column_name(field_name="FROM_ADDRESS") == Email.from_address
     assert fetch_column_name(field_name="To_Address") == Email.to_address
     assert fetch_column_name(field_name="sUbJeCt") == Email.subject
-    assert fetch_column_name(field_name="date") == Email.date_received
+    assert fetch_column_name(field_name="date_received") == Email.date_received
 
 
 @pytest.mark.parametrize("field_name", ["invalid_field", "", None])
@@ -89,14 +89,14 @@ def test_column_matches_for_date_type_fields():
         mock_datetime.now.return_value = current_utc_time
         _assert_column_value(
             column_match_for_datetime_types(
-                field_name="date", value=1, predicate="less than days"
+                field_name="date_received", value=1, predicate="less than days"
             ),
             (Email.date_received > current_utc_time - datetime.timedelta(days=1)),
         )
 
         _assert_column_value(
             column_match_for_datetime_types(
-                field_name="date", value=2, predicate="greater than days"
+                field_name="date_received", value=2, predicate="greater than days"
             ),
             (Email.date_received < current_utc_time - datetime.timedelta(days=2)),
         )
