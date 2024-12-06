@@ -39,3 +39,4 @@ markers = [
 
 [tool.pdm.scripts]
 fetch-emails = "python fetch_email_main.py"
+apply-rules = "python rules_and_executions.py"
