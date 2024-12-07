@@ -2,20 +2,20 @@ sample_rule = {
     "rules": {
         "conditions": [
             {
-                "field": "to_address",
+                "field": "from_address",
                 "predicate": "contains",
-                "value": "guru",
+                "value": "linkedin",
             },
             {
                 "field": "date_received",
                 "predicate": "less than days",
-                "value": 1,
+                "value": 10,
             },
         ],
         "match": "all",
     },
     "actions": {
         "move": "TRASH",
-        "mark": ["READ"],
+        "mark": ["UNREAD"],
     },
 }

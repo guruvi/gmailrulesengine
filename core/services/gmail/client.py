@@ -37,7 +37,6 @@ def get_access_token(*, scopes: tuple) -> Credentials:
     try:
         flow = InstalledAppFlow.from_client_secrets_file(credentials_path, list(scopes))
         credentials: Credentials = flow.run_local_server(port=0)
-        print(credentials.to_json())
         LOGGER.info("Credentials has been successfully fetched from the server.")
         return credentials
     except Exception as e:

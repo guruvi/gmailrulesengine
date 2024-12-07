@@ -32,7 +32,7 @@ migration:
 	@ pdm run piccolo migrations forwards gmail_rules_engine;
 
 teardown:
-	@ unset PATH_TO_CREDENTIALS_JSON
-	@ unset DATABASE_NAME
 	@ rm -rf gmailrulesengine.sqlite
 	@ rm -rf testgmailrulesengine.sqlite
+	@ unset PATH_TO_CREDENTIALS_JSON
+	@ unset DATABASE_NAME
