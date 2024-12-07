@@ -37,13 +37,14 @@ def get_access_token(*, scopes: tuple) -> Credentials:
     try:
         flow = InstalledAppFlow.from_client_secrets_file(credentials_path, list(scopes))
         credentials: Credentials = flow.run_local_server(port=0)
+        print(credentials.to_json())
         LOGGER.info("Credentials has been successfully fetched from the server.")
         return credentials
     except Exception as e:
         raise e
 
 
-def list_email(*, user_id: str, page_size: int=100, page_token: str=None) -> dict[str, Any]:
+def list_email(*, user_id: str, page_size: int=100, **kwargs: Any) -> dict[str, Any]:
     """
     List the user's Gmail labels.
 
@@ -53,25 +54,32 @@ def list_email(*, user_id: str, page_size: int=100, page_token: str=None) -> dic
     :param page_size: Page size
     :type page_size: int
 
-    :param page_token: Page token
-    :type page_token: str
+    :param kwargs: Keyword arguments
+    :type kwargs: Any
 
     :returns: Email list messages response
     :rtype: dict
     """
     LOGGER.info("Invoking Gmail messages list API")
     credentials = get_access_token(scopes=("https://mail.google.com/",))
+
+    # Set the query parameters
+    params: dict[str, Any] = {
+        "userId": user_id,
+        "maxResults": page_size,
+    }
+    if kwargs.get("page_token"):
+        params["pageToken"] = kwargs.get("page_token")
+
     if not credentials.valid:
         credentials = get_access_token(scopes=("https://mail.google.com/",))
+
     service: Resource = build("gmail", "v1", credentials=credentials)
     results = (
         service.users()
         .messages()
-        .list(
-            userId=user_id,
-            maxResults=page_size,
-            page_token=page_token,
-        ).execute()
+        .list(**params)
+        .execute()
     )
     LOGGER.info("Gmail list message API response successful.")
     return results

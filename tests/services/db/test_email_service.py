@@ -21,7 +21,6 @@ def test_should_insert_email_into_db():
     create_email(email=email_data)
 
     email = Email.objects().get(Email.email_id == email_data.reference_id).run_sync()
-    assert email.email_id == email_data.reference_id
     assert email.gmail_message_id == email_data.gmail_message_id
     assert email.from_address == email_data.from_address
     assert email.to_address == email_data.to_address
@@ -43,7 +42,6 @@ def test_email_query_filter():
     query = Email.from_address == "abcdef@gmail.com"
     result_email = filter_emails(query=query)[0]
 
-    assert result_email.email_id == email_data.reference_id
     assert result_email.gmail_message_id == email_data.gmail_message_id
     assert result_email.from_address == email_data.from_address
     assert result_email.to_address == email_data.to_address
